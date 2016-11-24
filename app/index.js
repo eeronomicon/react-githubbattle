@@ -1,44 +1,55 @@
+var USER_DATA = {
+  name: 'HK Kahng',
+  username: 'eeronomicon',
+  image: 'https://avatars1.githubusercontent.com/u/20058281?v=3&s=460'
+}
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-var HelloWorld = React.createClass({
-  render: function() {
-    return (
-      <div>Hallo {this.props.subject}!</div>
-    )
-  }
-})
+/*
+  Focused
+  Independent
+  Reusable
+  Small
+  Testable
+*/
 
-var FriendsContainer = React.createClass({
-  render: function(){
-    var name = 'Wanda'
-    var friends = ['Daisy', 'Nate', 'Pocky']
-    return (
-      <div>
-        <div className='jumbotron'><h1> {name} </h1></div>
-        <ShowList doge={name} names={friends} />
-      </div>
-    )
+var ProfilePic = React.createClass({
+  render: function () {
+    return <img src={this.props.imageUrl} style={{height: 200}}></img>
   }
 });
 
-var ShowList = React.createClass({
-  render: function(){
-    var listItems = this.props.names.map(function(friend){
-      return <li className='list-group-item'> {friend} </li>;
-    });
+var ProfileLink = React.createClass({
+  render: function () {
     return (
       <div>
-        <ul className='list-group'>
-          <li className='list-group-item active'><h3> Friends of {this.props.doge} </h3></li>
-          {listItems}
-        </ul>
+        <a href={'https://www.github.com/' +  this.props.username}>
+          {this.props.username}
+        </a>
       </div>
-    )
+    );
   }
 });
 
-ReactDOM.render(
-  <div className='container'><FriendsContainer /></div>,
-  document.getElementById('app')
-)
+var ProfileName = React.createClass({
+  render: function (){
+    return <div>{this.props.name}</div>
+  }
+});
+
+var Avatar = React.createClass({
+  render: function () {
+    return(
+      <div>
+        <ProfilePic imageUrl={this.props.user.image}/>
+        <ProfileName name={this.props.user.name}/>
+        <ProfileLink username={this.props.user.username}/>
+      </div>
+    );
+  }
+});
+
+
+ReactDOM.render(<Avatar user={USER_DATA} />, document.getElementById('app'));
